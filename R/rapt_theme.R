@@ -64,7 +64,7 @@ heatmap_color = function(colors = c("#0A95A7","white","#E5541B"), range = c(-1,0
 }
 
 
-#' theme_custom
+#' theme_rapt
 #'
 #' @param base_size
 #' @param x_label_size
