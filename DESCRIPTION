@@ -15,6 +15,7 @@ Imports:
     data.table (>= 1.9.4),
     tidyverse,
     circlize,
-    affy
+    affy,
+    ggrepel
 Suggests: 
     testthat
