@@ -17,6 +17,7 @@ Imports:
     circlize,
     affy,
     ggrepel,
-    GEOquery
+    GEOquery,
+    dplyr
 Suggests: 
     testthat

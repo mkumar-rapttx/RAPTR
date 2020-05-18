@@ -36,9 +36,7 @@ getMetaData = function(accessionNumber)
 
     meta_data =
         series_matrix@phenoData@data %>% # sample phenotype/meta data
-        as_tibble() %>%
-        transmute(sample_id = geo_accession,
-                  DiseaseStatus= gsub("disease state: ","",characteristics_ch1.1))
+        as_tibble()
 }
 
 #' Download probe data associated with a GEO accession number
