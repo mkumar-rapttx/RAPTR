@@ -14,10 +14,10 @@ downloadGEO = function(accessionNumber, dataDirectory = NULL)
     dir.create(dataDirectory,showWarnings = FALSE)
     filePaths = GEOquery::getGEOSuppFiles(accessionNumber,
                                           makeDirectory = FALSE,
-                                          baseDir = data_directory)
-    untar(rownames(filePaths),exdir = data_directory)
+                                          baseDir = dataDirectory)
+    untar(rownames(filePaths),exdir = dataDirectory)
     #untar(list.files(data_directory,pattern = ".gz$"),exdir = data_directory)
-    system(paste0("gunzip ",data_directory,"*.gz"))
+    system(paste0("gunzip ",dataDirectory,"*.gz"))
 
 }
 
