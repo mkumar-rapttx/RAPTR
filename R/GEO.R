@@ -9,9 +9,9 @@
 #' @examples
 downloadGEO = function(accessionNumber, dataDirectory = NULL)
 {
-    dataDirectory = if(is.null(dataDirectory)) paste0(accessionNumber,"/") else dataDirectory
+    dataDirectory = ifelse(is.null(dataDirectory), paste0(accessionNumber,"/"), dataDirectory)
     # Import CEL files
-    dir.create(dataDirectory,showWarnings = FALSE)
+    dir.create(dataDirectory,showWarnings = TRUE, recursive = TRUE)
     filePaths = GEOquery::getGEOSuppFiles(accessionNumber,
                                           makeDirectory = FALSE,
                                           baseDir = dataDirectory)
