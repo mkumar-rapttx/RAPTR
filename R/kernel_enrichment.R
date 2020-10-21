@@ -1,4 +1,4 @@
-# geneSetEnrichment: calculate enrichment scores for enriched and depleted gene sets
+# kernelEnrichment: calculate enrichment scores for enriched and depleted gene sets 
 # geneSets: list of gene name vectors
 # expressionVals: vector of gene scores such as differential expression values
 # genes: vector of gene names in the same order as expressionVals
@@ -155,23 +155,33 @@ kernelEnrichment <- function( geneSets, expressionVals, genes, minSetSize=0, par
 }
 
 
-# enrichmentScoreDT is the data.table output of geneSetEnrichment
-# plot.title is the optional title for the output plot
-kernelEnrichmentPlotter <- function( data, group, plot.title="Gene Set Enrichment Plot" ) {
+# kernelEnrichmentPlotter: Generate enrichment score plots
+# data: a data frame as found in the `details` section of the kernelEnrichment output
+# group: the column in data to group (should either be the sample or the gene set column)
+# plot.title: an optional title for the output plot
+# label.lines: label each line on the plot instead of in the legend
+kernelEnrichmentPlotter <- function( data, group, plot.title="Gene Set Enrichment Plot", label.lines=TRUE ) {
 	require(ggplot2)
 	require(ggrepel)
 
+	zeroPoints <- data %>% filter(zeroPoint == TRUE) # point in the gene expression data that goes from positive to negative
+	if (label.lines) label_data <- data %>% filter(isMax == TRUE) # positions of labels
+
 	p <- ggplot(data, aes(x=X, y=enrichmentScore, group={{group}}, color={{group}})) +
 		geom_hline( yintercept=0, linetype="dashed") +
-		geom_line() +
+		geom_vline( data=zeroPoints, aes(xintercept=X, color={{group}}), linetype="dashed", alpha=0.5) +
+		geom_line( ) +
+		ggtitle( plot.title )
+	if (label.lines) p <- p +
 		geom_label_repel(
-			data=subset(data, isMax == TRUE), aes(label={{group}}),
-				color="white", segment.color="#000000", segment.size=1,
+			data=label_data, aes(label={{group}}),
+				color="black", segment.color="#000000", segment.size=1,
 				fontface = 'bold', size=2.5, box.padding = unit(0.25, "lines"),
 				point.padding = unit(0.5, "lines")) +
-		ggtitle( plot.title )
+		theme(legend.position="none")
+
 	print(p)
 }
-
+					 
 
 
