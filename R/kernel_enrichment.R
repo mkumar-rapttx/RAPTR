@@ -108,7 +108,7 @@ kernelEnrichment <- function( geneSets, expressionVals, genes, minSetSize=0, par
 									posPval = pnorm(posScore, mean=randomized.pos.mean, sd=randomized.pos.sd, lower.tail=FALSE)
 				 				)
 			if (do.right) {
-				result_scores <- result_score %>% mutate(
+				result_scores <- result_scores %>% mutate(
 						negScore = negScore,
 						negScoreStandardized=(negScore - minNeg)/(maxNeg-minNeg),
 						negPval = pnorm(negScore, mean=randomized.neg.mean, sd=randomized.neg.sd, lower.tail=FALSE)
@@ -121,12 +121,11 @@ kernelEnrichment <- function( geneSets, expressionVals, genes, minSetSize=0, par
 									 hitPosition = hits, 
 									 isMax = seq_len(n) == which.max(abs(result_detail$enrichmentScore)),
 									 zeroPoint = seq_len(n) == zeroPoint,
-									 enrichmentScore =  if_else(do.right,
+          								 enrichmentScore =  ifelse(do.right,  # this doesn't work with `if_else`
 									 	c((cumsum(scoreVector) * positive.kernel)[left], -1 * (rev(cumsum(rev(scoreVector))) * negative.kernel)[right]),
-									 	(cumsum(scoreVector) * positive.kernel)
+									 	cumsum(scoreVector) * positive.kernel
 									 )
-									)
-
+									) %>% mutate(isMax = seq_len(n) == which.max(abs(enrichmentScore))) 
 			# return the combined results
 			return(list(results=result_scores, details=result_detail))
 		})
