@@ -97,7 +97,7 @@ kernelEnrichment <- function( geneSets, expressionVals, genes, minSetSize=0, ran
 		#########################################
 		# calculate scores for each signature of this length
 		results.here <- which_lapply(here, function(j) {
-			hits <- genes %in% results$geneSet[[j]]
+			hits <- genes %in% results$geneSet[ results$i == j ]
 			scoreVector <- copy(scoreVector.zeroed)
 			scoreVector[ hits ] <- inSetScore
 			
@@ -264,7 +264,7 @@ kernelEnrichmentMulti <- function( geneSets, expressionVals, genes, minSetSize=0
 		#########################################
 		# calculate scores for each signature of this length
 		results.here <- which_lapply(here, function(j) {
-			hits <- lapply(sns, function(i) genes[expressionOrders[,i]] %in% results$geneSet[[j]])
+			hits <- lapply(sns, function(i) genes[expressionOrders[,i]] %in% results$geneSet[ results$i == j ])
 			scoreVectors <- lapply(sns, function(i) {V=scoreVector.zeroed; V[hits[[i]]] <- inSetScore; V})
 			
 			# add up the score from the left and from the right
