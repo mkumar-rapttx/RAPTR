@@ -1,11 +1,17 @@
-# kernelEnrichment: calculate enrichment scores for enriched and depleted gene sets
-# geneSets: list of gene name vectors
-# expressionVals: vector of gene scores such as differential expression values
-# genes: vector of gene names in the same order as expressionVals
-# minSetSize:  the smallest gene set to analyze (based on useable genes)
-# parallel: use `mclapply` function
+#' Perform gene set enrichment analysis using a kernel-weighted GSEA score on a vector of values for a single sample
+#'
+#' @param geneSets a list of gene name vectors
+#' @param expressionVals a vector of gene scores such as differential expression values or Z-scores
+#' @param genes a vector of gene names in the same order as expressionVals
+#' @param minSetSize minimum number of genes that must be in gene set after filtering
+#' @param randomization_n number of rounds of randomization for empirical p-value calculation
+#' @param parallel run analysis using multicore parallel operations *may break*
+#' @return tibble with rows for each geneSet
+#' @export
+#'
+#' @examples
 kernelEnrichment <- function( geneSets, expressionVals, genes, minSetSize=0, randomization_n=1000, parallel=FALSE ) {
-	#	require(data.table)
+	require(dplyr)
 	if (parallel) {
 		require(parallel)
 		which_lapply <- mclapply
@@ -160,12 +166,18 @@ kernelEnrichment <- function( geneSets, expressionVals, genes, minSetSize=0, ran
 }
 
 
-# kernelEnrichment: calculate enrichment scores for enriched and depleted gene sets
-# geneSets: list of gene name vectors
-# expressionVals: matrix/data.table of gene scores such as differential expression values (rows=genes, cols=samples)
-# genes: vector of gene names in the same order as expressionVals
-# minSetSize:  the smallest gene set to analyze (based on useable genes)
-# parallel: use `mclapply` function
+#' Perform gene set enrichment analysis using a kernel-weighted GSEA score on a matrix of genes x samples
+#'
+#' @param geneSets a list of gene name vectors
+#' @param expressionVals a matrix/table of gene scores such as differential expression values or Z-scores, genes x samples
+#' @param genes a vector of gene names in the same order as the rows of expressionVals
+#' @param minSetSize minimum number of genes that must be in gene set after filtering
+#' @param randomization_n number of rounds of randomization for empirical p-value calculation
+#' @param parallel run analysis using multicore parallel operations *may break*
+#' @return tibble with rows for each geneSet x each sample
+#' @export
+#'
+#' @examples
 kernelEnrichmentMulti <- function( geneSets, expressionVals, genes, minSetSize=0, randomization_n=1000, parallel=FALSE ) {
 	#	require(data.table)
 	if (parallel) {
@@ -297,6 +309,17 @@ kernelEnrichmentMulti <- function( geneSets, expressionVals, genes, minSetSize=0
 }
 
 
+#' Plot the scores returned by kernelEnrichment/kernelEnrichmentMulti
+#'
+#' @param data a results table returned by kernelEnrichment/kernelEnrichmentMulti
+#' @param group a column in `data` used to color the plotted lines
+#' @param plot.title text to use for the plot title
+#' @param label.lines logical, whether to add labels to each line
+#' @return
+#' @export
+#'
+#' @examples
+
 # kernelEnrichmentPlotter: Generate enrichment score plots
 # data: a data frame as found in the `details` section of the kernelEnrichment output
 # group: the column in data to group (should either be the sample or the gene set column)
@@ -326,4 +349,16 @@ kernelEnrichmentPlotter <- function( data, group, plot.title="Gene Set Enrichmen
 }
 
 
+#' Return tibble with max enrichment score for each gene set
+#'
+#' @param enrichmentScores output of geneSetEnrichment
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getMaxScores <- function(enrichmentScores)
+{
+    enrichmentScores %>% filter(isMax)
+}
 
