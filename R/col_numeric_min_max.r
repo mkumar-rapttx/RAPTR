@@ -28,7 +28,7 @@ col_numeric_min_max <- function (palette, na.color = "white", alpha = FALSE, rev
 		# Note a bunch of functions don't get exported by scales.  Need to access them with `scales:::`
 	pf <- scales:::safePaletteFunc(palette, na.color, alpha)
 
-	withColorAttr("numeric", list(na.color = na.color), function(x) {
+	scales:::withColorAttr("numeric", list(na.color = na.color), function(x) {
 		if (length(x) == 0 || all(is.na(x))) return(pf(x))
 		# truncate to min.val and max.val
 		if (!is.null(min.val)) x[!is.na(x) & x < min.val] <- min.val
