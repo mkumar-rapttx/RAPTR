@@ -119,12 +119,12 @@ theme_rapt <- function(base_size = 16,
 rapt.extended <- c(gray="#5B666F", blue="#0A95A7", orange="#E5541B", yellow="#FE9F33", green="#4DA167", lilac="#947EB0", `dark blue`="#083D77")
 rapt.darker.extended <- c(gray2="#444D54",blue2="#06707E",orange2="#AC3F12",yellow2="#D07920", green2="#356E46", lilac2="#69597D", `dark blue2`="#052344")
 
-rapt_colors <- function(...) {
-	cols <- c(...)
-	full <- c(rapt.extended, rapt.darker.extended)
-	if (is.null(cols)) return(full)
-	return(full[cols])
-}
+#rapt_colors <- function(...) {
+#	cols <- c(...)
+#	full <- c(rapt.extended, rapt.darker.extended)
+#	if (is.null(cols)) return(full)
+#	return(full[cols])
+#}
 rapt_pal <- function(palette = "main", reverse = FALSE, ...) {
 	if (stringr::str_detect(palette, "dark")) {
 		pal <- rapt.darker.extended
