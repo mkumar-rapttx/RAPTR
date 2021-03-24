@@ -1,5 +1,5 @@
 # Some RAPT heatmap color definitions
-
+'''
 colors <- list(
 	phase = c(
 		M=rapt_colors()[["yellow"]],
@@ -56,4 +56,4 @@ bugn_range <- rev(sequential_hcl(6,"BuGn"))
 pkyl_range <- rev(sequential_hcl(4,"PinkYl"))
 lajo_range <- sequential_hcl(6,"Lajolla")
 powderblue_range <- c(colorRampPalette(c("white","#9FA2FF"))(10)[c(2,10)])
-
+'''
