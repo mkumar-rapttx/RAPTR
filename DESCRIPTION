@@ -18,6 +18,8 @@ Imports:
     affy,
     ggrepel,
     GEOquery,
-    dplyr
+    dplyr,
+    DESeq2,
+    fgsea
 Suggests: 
     testthat
