@@ -159,3 +159,25 @@ scale_fill_rapt <- function(palette = "main", reverse = FALSE, ...) {
 # # data(mtcars)
 # # ggplot(mtcars, aes(x=wt, y=drat, color=as.character(cyl))) + geom_point(size=3) + facet_wrap(~cyl) +
 # #	theme_rapt() + scale_color_rapt()
+
+theme_manu <- function(base_size = 18){ 
+    #font <- "Georgia"   #assign font family up front
+    theme_bw(base_size = base_size) %+replace%    #replace elements we want to change
+    theme(
+      #grid elements
+      panel.grid.major.x = element_blank(),    #strip major gridlines
+      panel.grid.minor = element_blank(),    #strip minor gridlines
+      #axis.ticks = element_blank(),          #strip axis ticks
+      
+      #text elements
+      plot.title = element_text(             #title
+                   #family = font,            #set font family
+                   size = 20,                #set font size
+                   face = 'bold',            #bold typeface
+                   hjust = 0.5,                #left align
+                   vjust = 2),               #raise slightly
+      
+      strip.text = element_text(size = 14, face = "bold"),
+      strip.background = element_rect(color="white", fill=NA, size=2.5, linetype= "solid")
+    )
+}
