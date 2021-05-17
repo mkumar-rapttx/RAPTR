@@ -114,10 +114,24 @@ theme_rapt <- function(base_size = 16,
 
 
 
+#' rapt_extended_colors
+#'
+#' @return
+#' @export
+#'
+rapt_extended_colors <- function() {	
+	c(gray="#5B666F", blue="#0A95A7", orange="#E5541B", yellow="#FE9F33", green="#4DA167", lilac="#947EB0", `dark blue`="#083D77")
+}
 
-
-rapt.extended <- c(gray="#5B666F", blue="#0A95A7", orange="#E5541B", yellow="#FE9F33", green="#4DA167", lilac="#947EB0", `dark blue`="#083D77")
-rapt.darker.extended <- c(gray2="#444D54",blue2="#06707E",orange2="#AC3F12",yellow2="#D07920", green2="#356E46", lilac2="#69597D", `dark blue2`="#052344")
+#' rapt_extended_colors_darker
+#'
+#' @return
+#' @export
+#'
+rapt_extended_colors_darker <- function() {
+	
+	c(gray2="#444D54",blue2="#06707E",orange2="#AC3F12",yellow2="#D07920", green2="#356E46", lilac2="#69597D", `dark blue2`="#052344")
+}
 
 #rapt_colors <- function(...) {
 #	cols <- c(...)
