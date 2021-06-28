@@ -15,11 +15,11 @@ Imports:
     data.table (>= 1.9.4),
     tidyverse,
     circlize,
-    affy,
     ggrepel,
+    dplyr
+Suggests: 
+    testthat,
+    affy,
     GEOquery,
-    dplyr,
     DESeq2,
     fgsea
-Suggests: 
-    testthat
